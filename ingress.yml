@@ -2,15 +2,20 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: murmur-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /api(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: murmur-backend-svc
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: murmur-frontend-svc

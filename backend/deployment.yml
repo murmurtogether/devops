@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      name: backend
+      labels:
+        app: backend
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: backend
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: KEYCLOAK_SERVER_URL
+              value: http://murmur-keycloak-svc
+            - name: KEYCLOAK_REALM
+              value: murmur
+            - name: KEYCLOAK_CLIENT_ID
+              value: murmur-admin
+            - name: KEYCLOAK_CLIENT_SECRET
+              value: x2sbjAMzeCxX6iScqegkquS3th9BXHxW
+            - name: DB_URL
+              value: "jdbc:postgresql://murmur-postgres-svc/murmur"
+            - name: S3_ACCESS_KEY
+              value: b10ae7ffbd5f784e0ad457e26261f2e4
+            - name: S3_SECRET_KEY
+              value: 70dba348bbafe676d63e7e8df2b0e6b6
+            - name: S3_BUCKET
+              value: murmur
+            - name: S3_URL
+              value: https://s3.cloud.ru
+            - name: S3_REGION
+              value: ru-central-1
+            - name: MULTIPART_MAX_SIZE
+              value: 256MB
+            - name: REDIS_HOIST
+              value: murmur-redis-svc
+            - name: FRONT_URL
+              value: murmur-frontend-svc
+            - name: OAUTH2_REDIRECT_PATH
+              value: /oauth2/token
+          image: murmur-registry.cr.cloud.ru/docker:murmur-backend
+          imagePullPolicy: Always
+      restartPolicy: Always

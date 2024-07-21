@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: murmur-redis
+  labels:
+    app: murmur-redis
+spec:
+  selector:
+    matchLabels:
+      app: murmur-redis
+  serviceName: murmur-redis
+  template:
+    metadata:
+      name: murmur-redis
+      labels:
+        app: murmur-redis
+    spec:
+      containers:
+        - name: murmur-redis
+          image: redis:alpine3.20
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
+          ports:
+            - containerPort: 6379
+
