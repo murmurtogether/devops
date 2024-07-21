@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: murmur-keycloak
+  labels:
+    app: murmur-keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: murmur-keycloak
+  template:
+    metadata:
+      name: murmur-keycloak
+      labels:
+        app: murmur-keycloak
+    spec:
+      containers:
+        - name: murmur-keycloak
+          ports:
+            - containerPort: 8080
+          args:
+            - start-dev
+          env:
+            - name: KC_DB_URL
+              value: "jdbc:postgresql://murmur-postgres-svc/keycloak"
+            - name: KC_DB
+              value: postgres
+            - name: KC_DB_USERNAME
+              value: postgres
+            - name: KC_DB_PASSWORD
+              value: postgres
+            - name: KC_HOSTNAME_STRICT
+              value: "false"
+            - name: KC_HOSTNAME_STRICT_HTTPS
+              value: "false"
+            - name: KC_HOSTNAME_STRICT_BACKCHANNEL
+              value: "false"
+            - name: KC_HTTP_ENABLED
+              value: "true"
+            - name: KEYCLOAK_ADMIN
+              value: admin
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: admin
+            - name: KC_FEATURES
+              value: preview,token-exchange
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+          image: keycloak/keycloak:25.0.2-0
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always

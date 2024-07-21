@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: murmur-postgresql
+  labels:
+    app: murmur-postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: murmur-postgresql
+  template:
+    metadata:
+      name: murmur-postgresql
+      labels:
+        app: murmur-postgresql
+    spec:
+      volumes:
+        - name: postgresql-murmur
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
+      containers:
+        - name: murmur-postgresql
+          image: postgres:16
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresql-murmur
+      restartPolicy: Always

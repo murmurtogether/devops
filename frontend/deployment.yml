@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: murmur-frontend-deployment
+  labels:
+    app: murmur-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: murmur-frontend-deployment
+  template:
+    metadata:
+      name: murmur-frontend-deployment
+      labels:
+        app: murmur-frontend-deployment
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: murmur-frontend-deployment
+          image: murmur-registry.cr.cloud.ru/docker:webapp
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
+
