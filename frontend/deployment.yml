@@ -19,7 +19,7 @@ spec:
         - name: regcred
       containers:
         - name: murmur-frontend-deployment
-          image: murmur-registry.cr.cloud.ru/docker:webapp
+          image: murmur-registry.cr.cloud.ru/docker/murmur-webapp
           imagePullPolicy: Always
           ports:
             - containerPort: 80
