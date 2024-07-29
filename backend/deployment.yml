@@ -52,6 +52,6 @@ spec:
               value: murmur-frontend-svc
             - name: OAUTH2_REDIRECT_PATH
               value: /oauth2/token
-          image: murmur-registry.cr.cloud.ru/docker/murmur-backend
+          image: murmur-registry.cr.cloud.ru/docker:murmur-backend
           imagePullPolicy: Always
       restartPolicy: Always
