@@ -29,7 +29,7 @@ spec:
             - name: KEYCLOAK_REALM
               value: murmur
             - name: KEYCLOAK_CLIENT_ID
-              value: murmur-admin
+              value: murmur
             - name: KEYCLOAK_CLIENT_SECRET
               value: x2sbjAMzeCxX6iScqegkquS3th9BXHxW
             - name: DB_URL
