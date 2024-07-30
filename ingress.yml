@@ -7,7 +7,14 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api
+          - path: /api/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: murmur-backend-svc
+                port:
+                  number: 80
+          - path: /login/oauth2/code/
             pathType: Prefix
             backend:
               service:

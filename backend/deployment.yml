@@ -49,7 +49,7 @@ spec:
             - name: REDIS_HOIST
               value: murmur-redis-svc
             - name: FRONT_URL
-              value: murmur-frontend-svc
+              value: https://murrr.site
             - name: OAUTH2_REDIRECT_PATH
               value: /oauth2/token
           image: murmur-registry.cr.cloud.ru/docker/murmur-backend
