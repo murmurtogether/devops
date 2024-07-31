@@ -22,17 +22,19 @@ spec:
                 name: murmur-backend-svc
                 port:
                   number: 80
-          - path: /api/swagger
-            pathType: Prefix
-            backend:
-              service:
-                name: murmur-backend-svc
-                port:
-                  number: 80
           - path: /
             pathType: Prefix
             backend:
               service:
                 name: murmur-frontend-svc
+                port:
+                  number: 80
+    - http:
+        paths:
+          - path: /api/swagger
+            pathType: Prefix
+            backend:
+              service:
+                name: murmur-backend-svc
                 port:
                   number: 80
