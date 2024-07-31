@@ -5,7 +5,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - http:
+    - host: murrr.site
+      http:
         paths:
           - path: /api/v1
             pathType: Prefix
@@ -15,6 +16,13 @@ spec:
                 port:
                   number: 80
           - path: /login/oauth2/code/
+            pathType: Prefix
+            backend:
+              service:
+                name: murmur-backend-svc
+                port:
+                  number: 80
+          - path: /api/swagger
             pathType: Prefix
             backend:
               service:
