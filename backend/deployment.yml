@@ -21,7 +21,10 @@ spec:
         - name: backend
           ports:
             - containerPort: 8080
+            - containerPort: 5005
           env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
             - name: SERVER_PORT
               value: "8080"
             - name: KEYCLOAK_SERVER_URL
